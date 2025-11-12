@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Lista de Detalles de Pedidos</h3>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID Detalle</th>
+        <th>ID Pedido</th>
+        <th>Producto</th>
+        <th>Línea</th>
+        <th>Cantidad</th>
+        <th>Precio Unit.</th>
+        <th>Subtotal</th>
+        <th>Descuento</th>
+        <th>Impuesto</th>
+        <th>Notas</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for d in detalles %}
+      <tr>
+        <td>{{ d.id }}</td>
+        <td>#{{ d.pedido.id }}</td>
+        <td>{{ d.producto.nombre|default:"N/A" }}</td>
+        <td>{{ d.numero_linea }}</td>
+        <td>{{ d.cantidad }}</td>
+        <td>${{ d.precio_venta_unitario }}</td>
+        <td>${{ d.subtotal_detalle }}</td>
+        <td>{{ d.porcentaje_descuento }}%</td>
+        <td>${{ d.impuesto_detalle }}</td>
+        <td>{{ d.notas_item|default:"N/A" }}</td>
+        <td>
+          <a class="btn btn-sm btn-info" href="{% url 'actualizar_detalle_pedido' d.id %}">Editar</a>
+          <a class="btn btn-sm btn-danger" href="{% url 'borrar_detalle_pedido' d.id %}">Borrar</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="11">No hay detalles de pedido.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

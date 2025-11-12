@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Actualizar Producto #{{ producto.id }}</h3>
+<form method="POST" action="{% url 'realizar_actualizacion_producto' producto.id %}">
+  {% csrf_token %}
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label>ISBO (ISBN)</label>
+      <input class="form-control" name="isbo" value="{{ producto.isbo }}" required>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label>Nombre del Producto</label>
+      <input class="form-control" name="nombre" value="{{ producto.nombre }}" required>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 mb-3">
+      <label>Idioma</label>
+      <input class="form-control" name="idioma" value="{{ producto.idioma }}" required>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label>Precio Base (USD)</label>
+      <input class="form-control" name="precio_base_usd" type="number" step="0.01" value="{{ producto.precio_base_usd|stringformat:'f' }}" required>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label>Tipo de Producto</label>
+      <input class="form-control" name="tipo_producto" value="{{ producto.tipo_producto }}" required>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label>Editorial</label>
+    <select class="form-control" name="editorial">
+      <option value="">-- Seleccionar (Opcional) --</option>
+      {% for e in editoriales %}
+        <option value="{{ e.id }}" {% if e.id == producto.editorial.id %}selected{% endif %}>{{ e.nombre_oficial }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <button class="btn btn-success" type="submit">Guardar Cambios</button>
+  <a class="btn btn-secondary" href="{% url 'ver_productos' %}">Cancelar</a>
+</form>
+{% endblock %}

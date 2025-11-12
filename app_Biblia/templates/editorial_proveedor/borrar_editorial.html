@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Borrar Editorial</h3>
+<p>¿Desea eliminar la editorial <strong>{{ editorial.nombre_oficial }}</strong>?</p>
+<form method="post">
+  {% csrf_token %}
+  <button class="btn btn-danger" type="submit">Eliminar</button>
+  <a class="btn btn-secondary" href="{% url 'ver_editoriales' %}">Cancelar</a>
+</form>
+{% endblock %}

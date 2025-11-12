@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Actualizar Editorial #{{ editorial.id }}</h3>
+<form method="POST" action="{% url 'realizar_actualizacion_editorial' editorial.id %}">
+  {% csrf_token %}
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label>Nombre Oficial</label>
+      <input class="form-control" name="nombre_oficial" value="{{ editorial.nombre_oficial }}" required>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label>Nombre Comercial</label>
+      <input class="form-control" name="nombre_comercial" value="{{ editorial.nombre_comercial|default_if_none:'' }}">
+    </div>
+  </div>
+  <div class="mb-3">
+    <label>País</label>
+    <input class="form-control" name="pais" value="{{ editorial.pais|default_if_none:'' }}">
+  </div>
+  <div class="row">
+    <div class="col-md-4 mb-3">
+      <label>Nombre de Contacto</label>
+      <input class="form-control" name="contacto_nombre" value="{{ editorial.contacto_nombre|default_if_none:'' }}">
+    </div>
+    <div class="col-md-4 mb-3">
+      <label>Email de Contacto</label>
+      <input class="form-control" name="contacto_email" type="email" value="{{ editorial.contacto_email|default_if_none:'' }}">
+    </div>
+    <div class="col-md-4 mb-3">
+      <label>Teléfono Internacional</label>
+      <input class="form-control" name="telefono_internacional" value="{{ editorial.telefono_internacional|default_if_none:'' }}">
+    </div>
+  </div>
+  <div class="mb-3">
+    <label>Dirección</label>
+    <textarea class="form-control" name="direccion" rows="3">{{ editorial.direccion|default_if_none:'' }}</textarea>
+  </div>
+  <button class="btn btn-success" type="submit">Guardar Cambios</button>
+  <a class="btn btn-secondary" href="{% url 'ver_editoriales' %}">Cancelar</a>
+</form>
+{% endblock %}

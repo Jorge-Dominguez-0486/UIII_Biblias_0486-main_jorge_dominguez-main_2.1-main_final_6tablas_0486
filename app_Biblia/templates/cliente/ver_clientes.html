@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Lista de Clientes</h3>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Email</th>
+        <th>Fec. Nacim.</th>
+        <th>País</th>
+        <th>Cód. Postal</th>
+        <th>Teléfono</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in clientes %}
+      <tr>
+        <td>{{ c.id }}</td>
+        <td>{{ c.nombre }}</td>
+        <td>{{ c.apellido }}</td>
+        <td>{{ c.email }}</td>
+        <td>{{ c.fecha_nacimiento|date:"Y-m-d"|default:"N/A" }}</td>
+        <td>{{ c.pais_residencia }}</td>
+        <td>{{ c.codigo_postal|default:"N/A" }}</td>
+        <td>{{ c.telefono|default:"N/A" }}</td>
+        <td>
+          <a class="btn btn-sm btn-info" href="{% url 'actualizar_cliente' c.id %}">Editar</a>
+          <a class="btn btn-sm btn-danger" href="{% url 'borrar_cliente' c.id %}">Borrar</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="9">No hay clientes registrados.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

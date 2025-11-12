@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Lista de Inventario</h3>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Producto</th>
+        <th>Ubicación</th>
+        <th>Cantidad</th>
+        <th>Costo Unit.</th>
+        <th>Últ. Actu.</th>
+        <th>Min. Stock</th>
+        <th>Max. Stock</th>
+        <th>Fec. Recep.</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in inventarios %}
+      <tr>
+        <td>{{ i.id }}</td>
+        <td>{{ i.producto.nombre }}</td>
+        <td>{{ i.almacen_ubicacion }}</td>
+        <td>{{ i.cantidad_disponible }}</td>
+        <td>${{ i.costo_unitario }}</td>
+        <td>{{ i.ultima_actualizacion|date:"Y-m-d H:i" }}</td>
+        <td>{{ i.minimo_stock }}</td>
+        <td>{{ i.maximo_stock }}</td>
+        <td>{{ i.fecha_recepcion|date:"Y-m-d"|default:"N/A" }}</td>
+        <td>
+          <a class="btn btn-sm btn-info" href="{% url 'actualizar_inventario' i.id %}">Editar</a>
+          <a class="btn btn-sm btn-danger" href="{% url 'borrar_inventario' i.id %}">Borrar</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="10">No hay inventario registrado.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

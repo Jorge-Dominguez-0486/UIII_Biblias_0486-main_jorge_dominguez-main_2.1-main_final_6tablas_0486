@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Borrar Inventario</h3>
+<p>¿Desea eliminar la entrada de inventario para <strong>{{ inventario.producto.nombre }}</strong>?</p>
+<form method="post">
+  {% csrf_token %}
+  <button class="btn btn-danger" type="submit">Eliminar</button>
+  <a class="btn btn-secondary" href="{% url 'ver_inventarios' %}">Cancelar</a>
+</form>
+{% endblock %}

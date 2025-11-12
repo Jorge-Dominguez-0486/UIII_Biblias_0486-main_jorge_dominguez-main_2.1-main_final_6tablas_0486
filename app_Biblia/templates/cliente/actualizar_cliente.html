@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Actualizar Cliente #{{ cliente.id }}</h3>
+<form method="POST" action="{% url 'realizar_actualizacion_cliente' cliente.id %}">
+  {% csrf_token %}
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label>Nombre</label>
+      <input class="form-control" name="nombre" value="{{ cliente.nombre }}" required>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label>Apellido</label>
+      <input class="form-control" name="apellido" value="{{ cliente.apellido }}" required>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label>Email</label>
+    <input class="form-control" name="email" type="email" value="{{ cliente.email }}" required>
+  </div>
+  <div class="mb-3">
+    <label>Fecha de Nacimiento</label>
+    <input class="form-control" name="fecha_nacimiento" type="date" value="{{ cliente.fecha_nacimiento|date:'Y-m-d' }}">
+  </div>
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label>País de Residencia</label>
+      <input class="form-control" name="pais_residencia" value="{{ cliente.pais_residencia }}" required>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label>Código Postal</label>
+      <input class="form-control" name="codigo_postal" value="{{ cliente.codigo_postal|default_if_none:'' }}">
+    </div>
+  </div>
+  <div class="mb-3">
+    <label>Teléfono</label>
+    <input class="form-control" name="telefono" value="{{ cliente.telefono|default_if_none:'' }}">
+  </div>
+
+  <button class="btn btn-success" type="submit">Guardar Cambios</button>
+  <a class="btn btn-secondary" href="{% url 'ver_clientes' %}">Cancelar</a>
+</form>
+{% endblock %}

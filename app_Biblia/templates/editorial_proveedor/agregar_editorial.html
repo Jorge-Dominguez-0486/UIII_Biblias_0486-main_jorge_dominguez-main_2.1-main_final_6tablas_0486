@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Agregar Editorial/Proveedor</h3>
+<form method="POST">
+  {% csrf_token %}
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label>Nombre Oficial</label>
+      <input class="form-control" name="nombre_oficial" required>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label>Nombre Comercial</label>
+      <input class="form-control" name="nombre_comercial">
+    </div>
+  </div>
+  <div class="mb-3">
+    <label>País</label>
+    <input class="form-control" name="pais">
+  </div>
+  <div class="row">
+    <div class="col-md-4 mb-3">
+      <label>Nombre de Contacto</label>
+      <input class="form-control" name="contacto_nombre">
+    </div>
+    <div class="col-md-4 mb-3">
+      <label>Email de Contacto</label>
+      <input class="form-control" name="contacto_email" type="email">
+    </div>
+    <div class="col-md-4 mb-3">
+      <label>Teléfono Internacional</label>
+      <input class="form-control" name="telefono_internacional">
+    </div>
+  </div>
+  <div class="mb-3">
+    <label>Dirección</label>
+    <textarea class="form-control" name="direccion" rows="3"></textarea>
+  </div>
+  <button class="btn btn-primary" type="submit">Agregar Editorial</button>
+</form>
+{% endblock %}

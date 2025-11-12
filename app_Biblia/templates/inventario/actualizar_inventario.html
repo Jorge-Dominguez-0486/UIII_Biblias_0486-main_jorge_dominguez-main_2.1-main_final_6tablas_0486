@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Actualizar Inventario de: {{ inventario.producto.nombre }}</h3>
+<p class="text-muted">El producto no se puede cambiar. Solo se actualizan los datos del inventario.</p>
+<form method="POST" action="{% url 'realizar_actualizacion_inventario' inventario.id %}">
+  {% csrf_token %}
+  <div class="row">
+    <div class="col-md-8 mb-3">
+      <label>Ubicación en Almacén</label>
+      <input class="form-control" name="almacen_ubicacion" value="{{ inventario.almacen_ubicacion }}" required>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label>Cantidad Disponible</label>
+      <input class="form-control" name="cantidad_disponible" type="number" value="{{ inventario.cantidad_disponible }}" required>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 mb-3">
+      <label>Costo Unitario</label>
+      <input class="form-control" name="costo_unitario" type="number" step="0.01" value="{{ inventario.costo_unitario|stringformat:'f' }}" required>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label>Mínimo Stock</label>
+      <input class="form-control" name="minimo_stock" type="number" value="{{ inventario.minimo_stock }}" required>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label>Máximo Stock</label>
+      <input class="form-control" name="maximo_stock" type="number" value="{{ inventario.maximo_stock }}" required>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label>Fecha de Recepción</label>
+    <input class="form-control" name="fecha_recepcion" type="date" value="{{ inventario.fecha_recepcion|date:'Y-m-d' }}">
+  </div>
+  <button class="btn btn-success" type="submit">Guardar Cambios</button>
+  <a class="btn btn-secondary" href="{% url 'ver_inventarios' %}">Cancelar</a>
+</form>
+{% endblock %}

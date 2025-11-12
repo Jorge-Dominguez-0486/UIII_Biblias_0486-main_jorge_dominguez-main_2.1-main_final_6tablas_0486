@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Agregar Producto Global</h3>
+<form method="POST">
+  {% csrf_token %}
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label>ISBO (ISBN)</label>
+      <input class="form-control" name="isbo" required>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label>Nombre del Producto</label>
+      <input class="form-control" name="nombre" required>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 mb-3">
+      <label>Idioma</label>
+      <input class="form-control" name="idioma" value="Español" required>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label>Precio Base (USD)</label>
+      <input class="form-control" name="precio_base_usd" type="number" step="0.01" value="0.00" required>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label>Tipo de Producto</label>
+      <input class="form-control" name="tipo_producto" placeholder="Ej: Biblia, Libro, etc." required>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label>Editorial</label>
+    <select class="form-control" name="editorial">
+      <option value="">-- Seleccionar (Opcional) --</option>
+      {% for e in editoriales %}
+        <option value="{{ e.id }}">{{ e.nombre_oficial }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <button class="btn btn-primary" type="submit">Agregar Producto</button>
+</form>
+{% endblock %}
